@@ -1,0 +1,39 @@
+[T1] Normal operation: 230 V / 5 A for 1 s -> relay stays ON
+  PASS  relay ON, no trip
+[T2] Sustained surge 265 V (limit 250 V, delay 20 ms) -> trips after the delay
+  PASS  relay OFF, fault=OV
+        measured trip latency = 20 ms (set delay 20 ms)
+  PASS  latency equals configured delay (+/-1 ms)
+[T3] 10 ms glitch at 265 V (shorter than 20 ms delay) -> ignored
+  PASS  no nuisance trip
+[T4] Severe surge 300 V (>115% of limit) -> immediate trip (0 ms)
+  PASS  tripped on first sample
+[T5] Over-current 12 A (limit 10 A) -> trips with fault=OC
+  PASS  relay OFF, fault=OC
+[T6] Short-circuit 18 A (>150% of limit) -> immediate trip
+  PASS  tripped on first sample
+[T7] Latched: relay stays OFF after the fault clears, reset refused while fault persists
+  PASS  still OFF after voltage returns to normal (latched)
+  PASS  RESET refused while voltage still high
+  PASS  RESET accepted once safe -> relay ON
+[T8] Hysteresis: 248 V is below the 250 V limit but not 'safe' (<242.5 V) -> reset refused
+  PASS  reset refused at 248 V
+  PASS  reset accepted at 240 V
+[T9] Auto-recover enabled (3 s): re-closes only after values stay safe for 3 s
+  PASS  still OFF at 2.9 s
+  PASS  re-closed after 3 s
+  PASS  recover timer restarts when the fault comes back
+[T10] PC settings over serial: GET / SET / range check / unknown command
+        > SET OV 240 -> OK SET OV=240
+  PASS  SET OV 240 applied
+        > set oc 8.5 -> OK SET OC=8.5
+  PASS  lower-case command accepted, OC=8.5
+        > SET OV 999 -> ERR BAD_KEY_OR_RANGE
+  PASS  out-of-range value rejected, setting unchanged
+        > GET -> OK OV=240.0 OC=8.50 DELAY=20 AUTO=0 RECOVER=5000 STATE=NORMAL RELAY=ON TRIPS=0
+  PASS  GET reports new settings
+        > FOO -> ERR UNKNOWN (GET | SET OV|OC|DELAY|AUTO|RECOVER <n> | RESET | STREAM 0/1)
+  PASS  unknown command -> ERR
+  PASS  new 240 V limit is actually used (245 V trips)
+
+SUMMARY: 21 checks, 0 failed

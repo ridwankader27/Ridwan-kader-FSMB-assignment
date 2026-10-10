@@ -1,0 +1,86 @@
+[  0.000 s] grid voltage -> 230.0 V
+[  0.000 s] load current -> 5.00 A
+   +----------------+
+   |V230.0 I 5.0 ON |
+   |NORMAL          |
+   +----------------+
+[  0.500 s] grid voltage -> 265.0 V
+[  0.510 s] grid voltage -> 230.0 V
+[  0.810 s] grid voltage -> 265.0 V
+[  0.845 s] EVENT TRIP fault=OV V=265.0 I=5.00 decision-latency=20 ms (+10 ms relay)
+[  0.855 s] relay contacts OPEN
+   +----------------+
+   |V265.0 I 0.0 OFF|
+   |TRIP OV         |
+   +----------------+
+[  1.110 s] RESET button -> refused (fault present)
+[  1.110 s] grid voltage -> 230.0 V
+[  1.310 s] RESET button -> accepted
+[  1.310 s] EVENT RECLOSE fault=- V=230.0 I=0.01 decision-latency=20 ms (+10 ms relay)
+[  1.320 s] relay contacts CLOSED
+[  1.510 s] load current -> 13.00 A
+[  1.545 s] EVENT TRIP fault=OC V=230.0 I=13.00 decision-latency=20 ms (+10 ms relay)
+[  1.555 s] relay contacts OPEN
+   +----------------+
+   |V230.0 I 0.0 OFF|
+   |TRIP OC         |
+   +----------------+
+[  1.810 s] RESET button -> accepted
+[  1.810 s] EVENT RECLOSE fault=- V=230.0 I=0.01 decision-latency=20 ms (+10 ms relay)
+[  1.820 s] relay contacts CLOSED
+[  1.855 s] EVENT TRIP fault=OC V=230.0 I=13.00 decision-latency=20 ms (+10 ms relay)
+[  1.865 s] relay contacts OPEN
+[  2.110 s] load current -> 5.00 A
+[  2.110 s] RESET button -> accepted
+[  2.110 s] EVENT RECLOSE fault=- V=230.0 I=0.01 decision-latency=20 ms (+10 ms relay)
+[  2.120 s] relay contacts CLOSED
+   +----------------+
+   |V230.0 I 5.0 ON |
+   |NORMAL          |
+   +----------------+
+[  2.410 s] load current -> 18.00 A
+[  2.425 s] EVENT TRIP fault=OC V=230.0 I=16.51 decision-latency=10 ms (+10 ms relay)
+[  2.435 s] relay contacts OPEN
+[  2.510 s] load current -> 5.00 A
+[  2.610 s] RESET button -> accepted
+[  2.610 s] PC> SET OV 240
+            MCU> OK SET OV=240
+[  2.610 s] PC> SET OC 8
+            MCU> OK SET OC=8
+[  2.610 s] PC> GET
+            MCU> OK OV=240.0 OC=8.00 DELAY=20 AUTO=0 RECOVER=5000 STATE=NORMAL RELAY=ON TRIPS=4
+[  2.610 s] grid voltage -> 245.0 V
+[  2.610 s] EVENT RECLOSE fault=- V=230.0 I=0.01 decision-latency=10 ms (+10 ms relay)
+[  2.620 s] relay contacts CLOSED
+[  2.645 s] EVENT TRIP fault=OV V=245.0 I=5.00 decision-latency=20 ms (+10 ms relay)
+[  2.655 s] relay contacts OPEN
+   +----------------+
+   |V245.0 I 0.0 OFF|
+   |TRIP OV         |
+   +----------------+
+[  2.810 s] PC> SET OV 999
+            MCU> ERR BAD_KEY_OR_RANGE
+[  2.810 s] PC> HELLO
+            MCU> ERR UNKNOWN (GET | SET OV|OC|DELAY|AUTO|RECOVER <n> | RESET | STREAM 0/1)
+[  2.810 s] grid voltage -> 230.0 V
+[  3.010 s] RESET button -> accepted
+[  3.010 s] EVENT RECLOSE fault=- V=230.0 I=0.01 decision-latency=20 ms (+10 ms relay)
+[  3.020 s] relay contacts CLOSED
+[  3.110 s] PC> SET AUTO 1
+            MCU> OK SET AUTO=1
+[  3.110 s] PC> SET RECOVER 1000
+            MCU> OK SET RECOVER=1000
+[  3.110 s] grid voltage -> 260.0 V
+[  3.135 s] EVENT TRIP fault=OV V=260.0 I=5.00 decision-latency=20 ms (+10 ms relay)
+[  3.145 s] relay contacts OPEN
+[  3.310 s] grid voltage -> 230.0 V
+[  4.330 s] EVENT RECLOSE fault=- V=230.0 I=0.01 decision-latency=20 ms (+10 ms relay)
+[  4.340 s] relay contacts CLOSED
+   +----------------+
+   |V230.0 I 5.0 ON |
+   |NORMAL          |
+   +----------------+
+[  4.810 s] PC> GET
+            MCU> OK OV=240.0 OC=8.00 DELAY=20 AUTO=1 RECOVER=1000 STATE=NORMAL RELAY=ON TRIPS=6
+
+Simulated 4.81 s, 6 trip(s). CSV: sim_log.csv
